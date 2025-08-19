@@ -3,11 +3,12 @@ package com.omm.MYWEBAPP.controller;
 import com.omm.MYWEBAPP.model.User;
 import com.omm.MYWEBAPP.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 public class UserController {
     @Autowired
@@ -36,4 +37,5 @@ public class UserController {
     public void deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
     }
+
 }

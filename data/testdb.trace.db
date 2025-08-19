@@ -429,3 +429,9 @@ select p1_0.id,p1_0.count,p1_0.description,p1_0.name,p1_0.price from product p1_
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1589)
+2025-08-19 12:47:12.780604+05:30 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "delete [*]* from PRODUCT"; expected "identifier"; SQL statement:
+delete * from PRODUCT [42001-232]
+2025-08-19 12:48:21.563440+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PRODUCT" not found; SQL statement:
+select p1_0.id,p1_0.description,p1_0.name,p1_0.price,p1_0.quantity from product p1_0 [42102-232]

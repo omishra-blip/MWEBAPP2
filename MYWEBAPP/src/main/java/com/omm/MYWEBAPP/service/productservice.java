@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
 @Service
-public class productservice {
+public class productservice implements ProductsInterface {
+
+
     @Autowired
     Productrepo productrepo;
 
@@ -21,34 +24,59 @@ public class productservice {
 
     //  List<product> product= new ArrayList<>(Arrays.asList(new product("Iphone","56000","Its an Iphone",56),
                // new product("Vioo","42000","Its  a vivo phone",24),
-              //  new product("Iqoo","78000","Its a iqoo phone",82)));
-        public List<Product> getProducts() {
-            return productrepo.findAll();
-        }
-        public Product getProductById(int id){
+           //  new product("Iqoo","78000","Its a iqoo phone",82)));
+
+    @Override
+    public List<Product> getProducts(){
+        return productrepo.findAll();
+    }
+    @Override
+    public Product getProductById(int id){
         return productrepo.findById(id).orElse(new Product());
     }
-    public List<Product>addProduct(List<Product> product){
 
-       return productrepo.saveAll(product);
+    @Override
+    public String addProduct(List<Product> product){
+
+          productrepo.saveAll(product);
+          return"Products added successfully";
+
 
     }
-    public void updateProduct(Product product){
+
+    @Override
+    public String updateProduct(Product product){
       productrepo.save(product);
+      return " product Updated";
     }
-    public void deleteProduct(int id){
+
+    @Override
+    public String deleteProduct(int id){
         productrepo.deleteById(id);
-    }
-    public String deleteProduct(Product product){
-        productrepo.delete(product);
         return "Product Deleted";
     }
-    public List<Product> getProductSorted( String sortBy){
+
+    @Override
+    public String deleteallProduct(){
+        productrepo.deleteAll();
+        return " all Product Deleted";
+    }
+
+    @Override
+    public List<Product> getProductSorted(String sortBy){
         return productrepo.findAll(Sort.by(sortBy));
     }
-    public List<Product> getProductSorted( String sortBy, String dir){
+
+    @Override
+    public List<Product> getProductSorted(String sortBy, String dir){
         Sort sort=dir.equalsIgnoreCase("asc")? Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
         return productrepo.findAll(sort);
+    }
+
+    @Override
+    public Page<Product> getProductPaginated(int pageNo, int pageSize){
+        Pageable pageable=PageRequest.of(pageNo-1,pageSize);
+        return productrepo.findAll(pageable);
     }
 
 
