@@ -19,19 +19,23 @@ public class UserService {
     public List<User> getUsers(){
         return userrepo.findAll();
     }
-    public User getUserById(Integer id){
-        return   userrepo.findById(id).orElse(new User());
+        public User getUserById(Integer id){
+             return userrepo.findById(id).orElse(new User());
+
 
     }
-    public  List<User> addUser(List<User> user){
-          return userrepo.saveAll(user);
+    public String addUser(List<User> user){
+         userrepo.saveAll(user);
+         return "User added successfully";
 
     }
-    public void updateUser(User user){
+    public String updateUser(User user){
         userrepo.save(user);
+        return "User Updated Successfully";
     }
-    public void deleteUser(Integer id){
+    public String deleteUser(Integer id){
         userrepo.deleteById(id);
+        return "User Deleted Successfully";
 
     }
 }

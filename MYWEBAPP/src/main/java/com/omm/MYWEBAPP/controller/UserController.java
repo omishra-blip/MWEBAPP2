@@ -26,16 +26,16 @@ public class UserController {
         userService.getUserById(id);
     }
     @PostMapping  ("/users")
-        public List<User> addUser( @RequestBody List<User> users){
+        public String addUser( @RequestBody List<User> users){
             return userService.addUser(users);
         }
     @PutMapping ("/users")
-    public void updateUser(@Valid @RequestBody User user ){
-        userService.updateUser(user);
+    public String updateUser(@Valid @RequestBody User user ){
+        return  userService.updateUser(user);
     }
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Integer id){
-        userService.deleteUser(id);
+    public String deleteUser(@PathVariable Integer id){
+        return userService.deleteUser(id);
     }
 
 }
