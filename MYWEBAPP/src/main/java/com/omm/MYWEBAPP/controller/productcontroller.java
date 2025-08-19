@@ -2,15 +2,16 @@ package com.omm.MYWEBAPP.controller;
 
 import com.omm.MYWEBAPP.model.Product;
 import com.omm.MYWEBAPP.service.productservice;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 public class productcontroller {
-    @Autowired
-    private productservice productservice;
+
+   final private productservice productservice;
     @GetMapping ("/product")
     public List<Product> getProducts() {
         return productservice.getProducts();
@@ -19,23 +20,39 @@ public class productcontroller {
     public Product getProductById(@PathVariable int id){
         return productservice.getProductById(id);
     }
-    @GetMapping("/products/page")
+    @GetMapping("/product/sort/{sortBy}")
     public List<Product> getProductSorted(
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String dir
-               ){
+            @PathVariable String sortBy)
+    {
+        return  productservice.getProductSorted( sortBy);
+    }
+    @GetMapping("/product/sort/{sortBy}/{dir}")
+    public List<Product> getProductSorted(
+            @PathVariable String sortBy,
+            @PathVariable String dir){
         return (List<Product>) productservice.getProductSorted( sortBy, dir);
     }
+    @GetMapping("/product/page/{pageNo}/{pageSize}")
+    public List<Product> getProductPaginated(
+            @PathVariable int pageNo,
+            @PathVariable int pageSize){
+        return productservice.getProductPaginated(pageNo,pageSize).getContent();
+    }
     @PostMapping("/product")
-    public List<Product> addProduct(@RequestBody List<Product> product){
+    public String addProduct(@RequestBody List<Product> product){
         return productservice.addProduct(product);
     }
     @PutMapping("/product")
-    public void updateProduct(@RequestBody Product product){
-        productservice.updateProduct(product);
+    public String updateProduct(@RequestBody Product product){
+        return productservice.updateProduct(product);
+
     }
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable Integer id){
         productservice.deleteProduct(id);
+    }
+    @DeleteMapping("/product/deleteall")
+    public String deleteallProduct(){
+        return productservice.deleteallProduct();
     }
 }

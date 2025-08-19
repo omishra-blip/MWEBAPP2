@@ -39,6 +39,13 @@ public class productservice {
     public void deleteProduct(int id){
         productrepo.deleteById(id);
     }
+    public String deleteProduct(Product product){
+        productrepo.delete(product);
+        return "Product Deleted";
+    }
+    public List<Product> getProductSorted( String sortBy){
+        return productrepo.findAll(Sort.by(sortBy));
+    }
     public List<Product> getProductSorted( String sortBy, String dir){
         Sort sort=dir.equalsIgnoreCase("asc")? Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
         return productrepo.findAll(sort);
