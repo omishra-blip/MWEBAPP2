@@ -1,39 +1,45 @@
 package com.omm.MYWEBAPP.service;
 
+import com.omm.MYWEBAPP.DTO.UserDTo;
+import com.omm.MYWEBAPP.DTO.User_Mapper;
 import com.omm.MYWEBAPP.model.User;
 import com.omm.MYWEBAPP.repo.Userrepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
-    @Autowired
-    Userrepo userrepo;
+
+    private final Userrepo userrepo;
+    private final User_Mapper user_mapper;
 
 
-    public UserService(Userrepo userrepo) {
-        this.userrepo = userrepo;
-    }
-    public List<User> getUsers(){
-        return userrepo.findAll();
-    }
-        public User getUserById(Integer id){
-             return userrepo.findById(id).orElse(new User());
+    public List<UserDTo> getUsers() {
+        return userrepo.findAll().stream().map(user_mapper::toDto).toList();
+        }
 
+    public UserDTo getUserById(Integer id) {
+       return userrepo.findById(id).map(user_mapper::toDto).orElse(null);
 
-    }
-    public String addUser(List<User> user){
-         userrepo.saveAll(user);
-         return "User added successfully";
 
     }
-    public String updateUser(User user){
-        userrepo.save(user);
+
+    public String addUser(List<UserDTo> dTos) {
+        userrepo.saveAll(dTos.stream().map(user_mapper::toModel).toList());
+        return "User added successfully";
+
+    }
+
+    public String updateUser(UserDTo dTos) {
+        User user=userrepo.save(user_mapper.toModel(dTos));
         return "User Updated Successfully";
     }
-    public String deleteUser(Integer id){
+
+    public String deleteUser(Integer id) {
         userrepo.deleteById(id);
         return "User Deleted Successfully";
 

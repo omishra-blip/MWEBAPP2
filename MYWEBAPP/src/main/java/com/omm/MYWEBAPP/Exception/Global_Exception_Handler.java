@@ -35,17 +35,17 @@ public class Global_Exception_Handler {
     }
 
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Error_Exceptio> handleGeneralException(Exception ex){
-        Error_Exceptio error_Exceptio = Error_Exceptio.builder()
-                .message(ex.getMessage())
+  //  @ExceptionHandler(Exception.class)
+    //public ResponseEntity<Error_Exceptio> handleGeneralException(Exception ex){
+//Error_Exceptio error_Exceptio = Error_Exceptio.builder()
+              //  .message(ex.getMessage())
 
-                .details("Something went wrong!!!")
-                .timestamp(LocalDateTime.now().toString())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .build();
-        return new ResponseEntity<>(error_Exceptio,HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+              //  .details("Something went wrong!!!")
+             //   .timestamp(LocalDateTime.now().toString())
+              //  .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            //    .build();
+        //return new ResponseEntity<>(error_Exceptio,HttpStatus.INTERNAL_SERVER_ERROR);
+    //}
 
 
 
