@@ -14,10 +14,9 @@ import java.util.List;
 @Service
 public class productservice implements ProductsInterface {
 
+    private final Productrepo productrepo;
 
     @Autowired
-    Productrepo productrepo;
-
     public productservice(Productrepo productrepo) {
         this.productrepo = productrepo;
     }

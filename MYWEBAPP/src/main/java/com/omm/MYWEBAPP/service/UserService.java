@@ -1,11 +1,10 @@
 package com.omm.MYWEBAPP.service;
 
 import com.omm.MYWEBAPP.DTO.UserDTo;
-import com.omm.MYWEBAPP.DTO.User_Mapper;
+import com.omm.MYWEBAPP.DTO.MAPPER.User_Mapper;
 import com.omm.MYWEBAPP.model.User;
 import com.omm.MYWEBAPP.repo.Userrepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
