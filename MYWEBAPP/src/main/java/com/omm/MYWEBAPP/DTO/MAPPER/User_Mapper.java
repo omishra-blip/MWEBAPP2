@@ -1,14 +1,14 @@
-package com.omm.MYWEBAPP.DTO;
+package com.omm.MYWEBAPP.DTO.MAPPER;
 
+import com.omm.MYWEBAPP.DTO.UserDTo;
 import com.omm.MYWEBAPP.model.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.MapperConfig;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface User_Mapper {
 
     UserDTo toDto(User user);
+
     User toModel(UserDTo userDTo);
 
 
