@@ -2,6 +2,7 @@ package com.omm.MYWEBAPP.controller;
 
 import com.omm.MYWEBAPP.model.Product;
 import com.omm.MYWEBAPP.service.ProductsInterface;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ public class productcontroller {
    @Autowired
    private ProductsInterface productsInterface;
     @GetMapping ("/product")
+    @Operation(summary = "Get all products",description = "Get all products" )
     public List<Product> getProducts() {
         return productsInterface.getProducts();
     }
