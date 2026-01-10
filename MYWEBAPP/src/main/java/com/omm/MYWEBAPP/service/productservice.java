@@ -2,6 +2,7 @@ package com.omm.MYWEBAPP.service;
 
 import com.omm.MYWEBAPP.model.Product;
 import com.omm.MYWEBAPP.repo.Productrepo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +27,12 @@ public class productservice implements ProductsInterface {
            //  new product("Iqoo","78000","Its a iqoo phone",82)));
 
     @Override
+
     public List<Product> getProducts(){
         return productrepo.findAll();
     }
     @Override
+    @Cacheable(value = "product",key="#id")
     public Product getProductById(int id){
         return productrepo.findById(id).orElse(new Product());
     }
@@ -39,8 +42,6 @@ public class productservice implements ProductsInterface {
 
           productrepo.saveAll(product);
           return"Products added successfully";
-
-
     }
 
     @Override
